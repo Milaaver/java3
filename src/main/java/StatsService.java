@@ -1,77 +1,69 @@
+package ru.netology.stats;
+
 public class StatsService {
-    public int sum(int[] data) {
-        int totalSum = 0;
-        for (int sum : data) {
-            totalSum += sum;
+    public int calculateSum(int[] sales) {
+        int sum = 0;
+        for (int sale : sales) {
+            sum += sale;
         }
-        return totalSum;
+//        System.out.println("Сумма продаж: " + sum);
+        return sum;
     }
 
-    public float averageSum(int[] data) {
-        int sum = 0, temp = 0;
-        float average = 0;
-        for (int b : data) {
-            sum += b;
-            temp++;
-        }
-        average = (float) sum / temp;
+    public int calculateAverage(int[] sales) {
+        int average = calculateSum(sales) / sales.length;
+//        System.out.println("Средние продажи:" + average);
         return average;
     }
 
-    public int numberMonthsOfMaxSales(int[] data) {    //3 Номер месяца, в котором был пик продаж
-        int a = 0, max_month = 0, number_month = 0;
-        for (int month : data) {
-            a++;
-            if (max_month <= month) {
-                max_month = month;
-                number_month = a;
+    public int calculateLastMonthWithMaxSales(int[] sales) {
+        int maxMonth = 0;
+        int month = 0;
+        for (int sale : sales) {
+            if (sale >= sales[maxMonth]) {
+                maxMonth = month;
             }
+            month = month + 1;
         }
-        return number_month;
+//        System.out.println("Последний месяц с максимальными продажами: " + (maxMonth + 1));
+        return maxMonth + 1;
     }
 
-    public int numberMonthsOfMinSales(int[] data) {
-        int temp = 0, minMonth = data[0], numberMonth = 1;
-        for (int month : data) {
-            temp++;
-            if (minMonth >= month) {
+    public int calculateLastMonthWithMinSales(int[] sales) {
+        int minMonth = 0;
+        int month = 0;
+        for (int sale : sales) {
+            if (sale <= sales[minMonth]) {
                 minMonth = month;
-                numberMonth = temp;
             }
+            month = month + 1;
         }
-        return numberMonth;
+//        System.out.println("Последний месяц с минимальными продажами: " + (minMonth + 1));
+        return minMonth + 1;
     }
 
 
-    public int numberOfMonthsSalesBelowAverage(int[] data) {           //5
-        int sum = 0, temp = 0, numberOfMonths = 0;
-        float average = 0;
-        for (int b : data) {
-            sum += b;
-            temp++;
-        }
-        average = (float) sum / temp;
-        for (int b : data) {
-            if (b < average) {
-                numberOfMonths++;
+    public int calculateMonthBelowAverage(int[] sales) {
+        int count = 0;
+        int average = calculateAverage(sales);
+        for (int i : sales) {
+            if (i < average) {
+                count++;
             }
         }
-        return numberOfMonths;
+//        System.out.println("Количество месяцев с продажами ниже среднего: " + count);
+        return count;
     }
 
-    public int numberOfMonthsSalesAboveAverage(int[] data) {
-        int sum = 0, temp = 0, numberOfMonths = 0;
-        float average = 0;
-        for (int b : data) {
-            sum += b;
-            temp++;
-        }
-        average = (float) sum / temp;
-        for (int b : data) {
-            if (b > average) {
-                numberOfMonths++;
+    public int calculateMonthAboveAverage(int[] sales) {
+        int count = 0;
+        int average = calculateAverage(sales);
+        for (int i : sales) {
+            if (i > average) {
+                count++;
             }
         }
-        return numberOfMonths;
+//        System.out.println("Количество месяцев с продажами выше среднего: " + count);
+        return count;
     }
 }
