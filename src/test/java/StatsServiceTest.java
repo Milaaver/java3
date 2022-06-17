@@ -1,56 +1,73 @@
+package ru.netology.stats;
+
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StatsServiceTest {
-    int[] data = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
 
     @Test
-    void sum() {                                     //#1
-        StatsService servise = new StatsService();
-        int exp = 180;
-        int act = servise.sum(data);
-        assertEquals(exp, act);
+    @Order(1)
+    void shouldCalculateSum() {
+        StatsService service = new StatsService();
+        int[] sales = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        int expected = 180;
+        int actual = service.calculateSum(sales);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void sverageSum() {                              //2 Среднюю сумму продаж в месяц
-        StatsService servise = new StatsService();
-        float exp = 15;
-        float act = servise.averageSum(data);
-        assertEquals(exp, act);
+    @Order(2)
+    void shouldCalculateAverage() {
+        StatsService service = new StatsService();
+        int[] sales = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        int expected = 15;
+        int actual = service.calculateAverage(sales);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void numberMonthsOfMaxSales() {                  //3 Номер месяца, в котором был пик продаж
-        StatsService servise = new StatsService();
-        int exp = 8;
-        int act = servise.numberMonthsOfMaxSales(data);
-        assertEquals(exp, act);
+    @Order(3)
+    void shouldCalculateLastMonthWithMaxSales() {
+        StatsService service = new StatsService();
+        int[] sales = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        int expected = 8;
+        int actual = service.calculateLastMonthWithMaxSales(sales);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void numberMonthsOfMinSales() {                   // 4 Номер месяца, в котором был минимум продаж
-        StatsService servise = new StatsService();
-        int exp = 9;
-        int act = servise.numberMonthsOfMinSales(data);
-        assertEquals(exp, act);
+    @Order(4)
+    void shouldCalculateLastMonthWithMinSales() {
+        StatsService service = new StatsService();
+        int[] sales = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        int expected = 9;
+        int actual = service.calculateLastMonthWithMinSales(sales);
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @Order(5)
+    void shouldCalculateMonthBelowAverage() {
+        StatsService service = new StatsService();
+        int[] sales = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        int expected = 5;
+        int actual = service.calculateMonthBelowAverage(sales);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void numberOfMonthsSalesBelowAverage() {             // 5 Кол-во месяцев, в которых продажи были ниже среднего
-        StatsService servise = new StatsService();
-        int exp = 5;
-        int act = servise.numberOfMonthsSalesBelowAverage(data);
-        assertEquals(exp, act);
+    @Order(6)
+    void shouldCalculateMonthAboveAverage() {
+        StatsService service = new StatsService();
+        int[] sales = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+        int expected = 5;
+        int actual = service.calculateMonthAboveAverage(sales);
+        assertEquals(expected, actual);
     }
-
-    @Test
-    void numberOfMonthsSalesAboveAverage() {             // 6 Кол-во месяцев, в которых продажи были выше среднего
-        StatsService servise = new StatsService();
-        int exp = 5;
-        int act = servise.numberOfMonthsSalesAboveAverage(data);
-        assertEquals(exp, act);
-    }
-
 }
